@@ -1,18 +1,38 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
-namespace LabWork
+namespace RegularExpressionLab
 {
-    // Даний проект є шаблоном для виконання лабораторних робіт
-    // з курсу "Об'єктно-орієнтоване програмування та патерни проектування"
-    // Необхідно змінювати і дописувати код лише в цьому проекті
-    // Відео-інструкції щодо роботи з github можна переглянути 
-    // за посиланням https://www.youtube.com/@ViktorZhukovskyy/videos 
     class Program
     {
         static void Main(string[] args)
         {
-            
-            Console.WriteLine("Hello World!");
+            // Заданий текст
+            Console.WriteLine("Введіть текст:");
+            string inputText = Console.ReadLine();
+
+            // Регулярний вираз для пошуку тегів <html>, <form>, <h1>
+            string pattern = @"<(html|form|h1)>";
+
+            // Створення об'єкта Regex
+            Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+
+            // Пошук збігів у тексті
+            MatchCollection matches = regex.Matches(inputText);
+
+            // Виведення результатів
+            if (matches.Count > 0)
+            {
+                Console.WriteLine($"Знайдено {matches.Count} HTML теги:");
+                foreach (Match match in matches)
+                {
+                    Console.WriteLine($"- {match.Value}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("HTML теги не знайдено.");
+            }
         }
     }
 }
